@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khallasna | Project Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">K</div>
+            <div>
+                <h1>Khallasna</h1>
+                <span>Get things done.</span>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <button class="nav-item active" data-view="dashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-view="board">
+                <span>▦</span>
+                My Board
+            </button>
+        </nav>
+
+        <div class="projects-header">
+            <span>PROJECTS</span>
+            <button id="addProjectBtn">+</button>
+        </div>
+
+        <div id="projectList" class="project-list"></div>
+
+        <div class="sidebar-bottom">
+            <div class="productivity-card">
+                <div class="productivity-icon">✓</div>
+                <div>
+                    <strong>Stay productive</strong>
+                    <p>Finish your tasks.</p>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div class="mobile-brand">
+                <div class="brand-icon">K</div>
+                <strong>Khallasna</strong>
+            </div>
+
+            <div class="topbar-actions">
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input type="text" id="searchInput" placeholder="Search tasks...">
+                    <kbd>Ctrl K</kbd>
+                </div>
+
+                <button class="icon-button" id="themeBtn" title="Toggle theme">☼</button>
+
+                <div class="avatar">K</div>
+
+            </div>
+
+        </header>
+
+        <section class="content">
+
+            <div id="dashboardView">
+
+                <div class="welcome-row">
+                    <div>
+                        <p class="eyebrow">WORKSPACE</p>
+                        <h2>Good to see you, Karim 👋</h2>
+                        <p class="subtitle">Let's get your work done.</p>
+                    </div>
+
+                    <button class="primary-btn" id="dashboardAddTask">
+                        <span>+</span>
+                        Add Task
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>Total Tasks</span>
+                            <div class="stat-icon blue">✓</div>
+                        </div>
+                        <strong id="totalTasks">0</strong>
+                        <small>All your tasks</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>Completed</span>
+                            <div class="stat-icon green">✓</div>
+                        </div>
+                        <strong id="completedTasks">0</strong>
+                        <small>Tasks completed</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>In Progress</span>
+                            <div class="stat-icon orange">◷</div>
+                        </div>
+                        <strong id="progressTasks">0</strong>
+                        <small>Currently working</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>Overdue</span>
+                            <div class="stat-icon red">!</div>
+                        </div>
+                        <strong id="overdueTasks">0</strong>
+                        <small>Need attention</small>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <div class="panel recent-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Recent Tasks</h3>
+                                <p>Your latest work</p>
+                            </div>
+
+                            <button class="text-btn" id="viewBoardBtn">
+                                View board →
+                            </button>
+                        </div>
+
+                        <div id="recentTasks" class="recent-tasks"></div>
+
+                    </div>
+
+                    <div class="panel progress-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Progress</h3>
+                                <p>Overall completion</p>
+                            </div>
+                        </div>
+
+                        <div class="progress-circle">
+                            <div>
+                                <strong id="progressPercent">0%</strong>
+                                <span>completed</span>
+                            </div>
+                        </div>
+
+                        <div class="progress-info">
+                            <div>
+                                <span class="dot completed-dot"></span>
+                                Completed
+                                <strong id="completedProgress">0</strong>
+                            </div>
+
+                            <div>
+                                <span class="dot remaining-dot"></span>
+                                Remaining
+                                <strong id="remainingProgress">0</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="boardView" class="hidden">
+
+                <div class="board-header">
+
+                    <div>
+                        <p class="eyebrow">PROJECT</p>
+                        <h2 id="boardTitle">My Board</h2>
+                        <p class="subtitle" id="boardSubtitle">Manage your tasks.</p>
+                    </div>
+
+                    <button class="primary-btn" id="boardAddTask">
+                        <span>+</span>
+                        Add Task
+                    </button>
+
+                </div>
+
+                <div class="board-toolbar">
+
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="low">Low</button>
+                        <button class="filter-btn" data-filter="medium">Medium</button>
+                        <button class="filter-btn" data-filter="high">High</button>
+                    </div>
+
+                    <select id="sortSelect">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="priority">Priority</option>
+                        <option value="dueDate">Due date</option>
+                    </select>
+
+                </div>
+
+                <div class="kanban">
+
+                    <div class="kanban-column" data-status="todo">
+                        <div class="column-header">
+                            <div class="column-title">
+                                <span class="column-dot todo-dot"></span>
+                                <h3>To Do</h3>
+                                <span class="count" id="todoCount">0</span>
+                            </div>
+                        </div>
+
+                        <div class="task-list" id="todoTasks"></div>
+
+                        <button class="add-column-task" data-status="todo">
+                            + Add task
+                        </button>
+                    </div>
+
+                    <div class="kanban-column" data-status="progress">
+                        <div class="column-header">
+                            <div class="column-title">
+                                <span class="column-dot progress-dot"></span>
+                                <h3>In Progress</h3>
+                                <span class="count" id="progressCount">0</span>
+                            </div>
+                        </div>
+
+                        <div class="task-list" id="progressTasksBoard"></div>
+
+                        <button class="add-column-task" data-status="progress">
+                            + Add task
+                        </button>
+                    </div>
+
+                    <div class="kanban-column" data-status="done">
+                        <div class="column-header">
+                            <div class="column-title">
+                                <span class="column-dot done-dot"></span>
+                                <h3>Completed</h3>
+                                <span class="count" id="doneCount">0</span>
+                            </div>
+                        </div>
+
+                        <div class="task-list" id="doneTasks"></div>
+
+                        <button class="add-column-task" data-status="done">
+                            + Add task
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div class="modal-overlay" id="taskModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <div>
+                <p class="eyebrow">TASK</p>
+                <h2 id="modalTitle">Create New Task</h2>
+            </div>
+
+            <button class="close-btn" id="closeTaskModal">×</button>
+        </div>
+
+        <form id="taskForm">
+
+            <input type="hidden" id="taskId">
+
+            <div class="form-group">
+                <label>Task title</label>
+                <input type="text" id="taskTitle" placeholder="What needs to be done?" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="taskDescription" placeholder="Add some details..."></textarea>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label>Project</label>
+                    <select id="taskProject"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select id="taskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="taskStatus">
+                        <option value="todo">To Do</option>
+                        <option value="progress">In Progress</option>
+                        <option value="done">Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Due date</label>
+                    <input type="date" id="taskDueDate">
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" id="cancelTask">Cancel</button>
+                <button type="submit" class="primary-btn">Save Task</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="modal-overlay" id="projectModal">
+
+    <div class="modal small-modal">
+
+        <div class="modal-header">
+            <div>
+                <p class="eyebrow">PROJECT</p>
+                <h2>Create Project</h2>
+            </div>
+
+            <button class="close-btn" id="closeProjectModal">×</button>
+        </div>
+
+        <form id="projectForm">
+
+            <div class="form-group">
+                <label>Project name</label>
+                <input type="text" id="projectName" placeholder="e.g. Portfolio Website" required>
+            </div>
+
+            <div class="form-group">
+                <label>Project color</label>
+
+                <div class="color-options">
+                    <label>
+                        <input type="radio" name="projectColor" value="#6366f1" checked>
+                        <span style="background:#6366f1"></span>
+                    </label>
+
+                    <label>
+                        <input type="radio" name="projectColor" value="#06b6d4">
+                        <span style="background:#06b6d4"></span>
+                    </label>
+
+                    <label>
+                        <input type="radio" name="projectColor" value="#22c55e">
+                        <span style="background:#22c55e"></span>
+                    </label>
+
+                    <label>
+                        <input type="radio" name="projectColor" value="#f59e0b">
+                        <span style="background:#f59e0b"></span>
+                    </label>
+
+                    <label>
+                        <input type="radio" name="projectColor" value="#ef4444">
+                        <span style="background:#ef4444"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" id="cancelProject">Cancel</button>
+                <button type="submit" class="primary-btn">Create Project</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
